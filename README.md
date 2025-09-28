@@ -14,10 +14,23 @@ Note: We focus on stylometry/player comparisons only (not the Maia-2 engine exte
 ## Environment
 - Use `uv` for Python environment management
 - Run tests with: `uv run pytest`
-- Start development server: `uv run python -m app.main`
 
 ## Architecture
 - Backend: FastAPI with SQLite database
-- ML Pipeline: CNN feature extraction ’ Transformer aggregation ’ Player embeddings
+- ML Pipeline: CNN feature extraction ï¿½ Transformer aggregation ï¿½ Player embeddings
 - Frontend: Vanilla HTML/CSS/JS
 - Processing: Async job queue for analysis tasks
+
+
+## TODO:
+
+- Implement vectorization for moves
+  - 2 FEN go in (before/after), 1 vector comes out
+  - 8x8x17
+    - First 12 channels: one 8x8 for each piece color/type
+      - zeroes(), 1 for each position holding that piece
+    - Next 4 channels: all ones() if player can castle
+      - White kingside, white queenside, black kingside, black queenside
+    - Last channel: all ones() if player to move is white
+  - One "move" is a tuple of two position vectors (before/after)
+

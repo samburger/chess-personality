@@ -1,7 +1,16 @@
 [project]
 name = "chess-personality"
 version = "0.1.0"
-description = "Add your description here"
+description = "A chess stylometry system that analyzes playing styles and matches players to historical chess masters."
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "numpy>=2.3.3",
+    "python-chess>=1.999",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.9.0",
+    "ipython>=9.5.0",
+]
