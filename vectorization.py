@@ -1,8 +1,6 @@
 import chess
 import numpy as np
 
-from typing import Union
-
 COLORS = [chess.WHITE, chess.BLACK]
 PIECETYPES = [
     chess.PAWN,
@@ -19,7 +17,10 @@ def bitboard_to_array(bitboard: chess.Bitboard) -> np.ndarray:
 
 
 def squareset_to_array(squareset: chess.SquareSet) -> np.ndarray:
-    return np.array([int(b) for b in reversed(squareset)]).reshape((8, 8))
+    square_array = np.array([int(b) for b in squareset.tolist()]).reshape((8, 8))
+    # Reverse the row order to have white on the bottom
+    square_array = np.flipud(square_array)
+    return square_array
 
 
 def position_to_vector(position: chess.Board) -> np.ndarray:
@@ -50,9 +51,13 @@ def position_to_vector(position: chess.Board) -> np.ndarray:
         ]
         castling_arrays.extend(castling_array)
     # Get board vector for move status
-    tomove_array = 1 if position.turn == chess.WHITE else 0
-    tomove_array = np.ones((8, 8)) * tomove_array
+    turn_array = 1 if position.turn == chess.WHITE else 0
+    turn_array = np.ones((8, 8)) * turn_array
     # Stack vectors along new dimension
-    all_arrays = piece_arrays + castling_arrays + [tomove_array]
+    all_arrays = piece_arrays + castling_arrays + [turn_array]
     position_vector = np.stack(all_arrays, axis=-1)
-    return position_vector
+    return position_vector.astype(int)
+
+
+if __name__ == "__main__":
+    position_to_vector(chess.Board())
