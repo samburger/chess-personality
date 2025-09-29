@@ -33,6 +33,5 @@ Note: We focus on stylometry/player comparisons only (not the Maia-2 engine exte
       - White kingside, white queenside, black kingside, black queenside
     - Last channel: all ones() if player to move is white
   - One "move" is a tuple of two position vectors (before/after)
-- Implement historic player database scrape
-  - Must track white vs black and have way of communicating this in embeddings
+- Create PGN cleanser to remove games with <10 turns, insufficient metadata, etc.
 
